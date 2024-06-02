@@ -1,5 +1,5 @@
 [package]
-name = "pyo3-prost"
+name = "pyo3-tonic"
 version = "0.1.0"
 authors = ["Li-Hsing Liu <austin362667@gmail.com>"]
 description = "Protocol Buffers compiler plugin for PyO3 Python binding compatible gRPC services powered by Prost! and Tonic"
@@ -21,7 +21,7 @@ prettyplease = "0.2.9"
 prost-build = { version = "0.12.3", default-features = false }
 prost-types = { version = "0.12.3", default-features = false }
 prost = { version = "0.12.3", default-features = false, features = ["std"] }
-protoc-gen-prost = { version = "0.3.1" }
+protoc-gen-prost = "0.3.1"
 regex = { version = "1.5.5", default-features = false }
 syn = { version = "2.0.22", features = ["parsing", "full"] }
 tonic-build = { version = "0.11.0", features = [] }

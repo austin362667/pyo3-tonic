@@ -45,24 +45,26 @@ impl TonicGenerator {
                         self.prepare_service(module, file, descriptor, service_index)
                     })
                     .flat_map(|service| {
-                        let mut attribute = Attributes::default();
-                        attribute.push_struct(".",  "#[::pyo3::pyclass(get_all, set_all)]");
+                        let mut client_attribute = Attributes::default();
+                        client_attribute.push_struct(".",  "#[::pyo3::pyclass(get_all, set_all)]");
                         let client = self.generate_client.then(|| {
                             tonic_build::CodeGenBuilder::new()
                                 .emit_package(self.emit_package)
                                 .build_transport(self.generate_transport)
                                 .compile_well_known_types(self.resolver.compile_well_known_types())
                                 .attributes(self.client_attributes.clone())
-                                .attributes(attribute)
+                                .attributes(client_attribute)
                                 .generate_client(&service, PROTO_PATH)
                         });
+                        let mut server_attribute = Attributes::default();
+                        server_attribute.push_struct(".",  "#[::pyo3::pyclass(get_all, set_all)]");
                         let server = self.generate_server.then(|| {
                             tonic_build::CodeGenBuilder::new()
                                 .emit_package(self.emit_package)
                                 .build_transport(self.generate_transport)
                                 .compile_well_known_types(self.resolver.compile_well_known_types())
                                 .attributes(self.server_attributes.clone())
-				                .attributes(attribute)
+				                .attributes(server_attribute)
                                 .generate_server(&service, PROTO_PATH)
                         });
 
